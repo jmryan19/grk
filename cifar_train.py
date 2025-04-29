@@ -14,7 +14,6 @@ from pytorch_lightning.callbacks import ModelCheckpoint
 from get_cifar import get_data
 from helpers_lightning import LightweightLightning
 
-
 checkpoint_callback = ModelCheckpoint(
     save_top_k=2,           
     monitor="val_epoch_acc",     
@@ -57,7 +56,6 @@ def main(args:dict):
     print(f'MAX EPOCHS: {max_epochs}')
     print('---------------------------------------')
     print()
-
 
     pl_model = LightweightLightning(args, title)
     trainer = pl.Trainer(accelerator = device, logger = wandb_logger, max_epochs = max_epochs, devices= 'auto', callbacks=[checkpoint_callback])

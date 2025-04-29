@@ -115,7 +115,7 @@ def get_data(custom = False, five_m = False, batch_size = 64, num_training_sets 
         val_dataset = CIFAR10_Wrapper(train=False)
 
     # Create dataloaders
-    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers, pin_memory=True)
+    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers, pin_memory=True)
     val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers, pin_memory=True)
 
     return train_loader, val_loader

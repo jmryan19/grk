@@ -6,9 +6,11 @@ from torch import nn
 import torchvision
 from einops import rearrange, repeat
 sys.path.append(os.getcwd() + '/grokking/grokking')
+sys.path.append(os.getcwd()[:-7] + '/grokking/grokking')
 from model import Transformer
 import matplotlib.pyplot as plt
 import wandb
+import random
 
 class LightweightLightning(pl.LightningModule):
     def __init__(self, config, title):
@@ -17,7 +19,20 @@ class LightweightLightning(pl.LightningModule):
         self.cli_config = config
         self.title = title
 
-        torch.manual_seed(config.seed)
+        seed = config.seed
+        random.seed(seed)
+        np.random.seed(seed)
+        
+        # PyTorch (CPU)
+        torch.manual_seed(seed)
+        
+        # PyTorch (CUDA)
+        torch.cuda.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)  # For multi-GPU setups
+        
+        # For deterministic behavior (optional, may slow things down)
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
         
         # SETUP MODEL
         if config.model == 'transformer':

@@ -28,7 +28,8 @@ class Config():
                  custom_cifar = False,
                  repeat = False,
                  kind_custom = 'top',
-                 seed = None):
+                 seed = None,
+                 sanity = False):
         self.wandb_offline = wandb_offline
         self.prime = prime
         self.data_budget = data_budget
@@ -60,3 +61,4 @@ class Config():
         self.repeat = repeat
         self.kind_custom = kind_custom
         self.seed = seed
+        self.sanity = sanity
